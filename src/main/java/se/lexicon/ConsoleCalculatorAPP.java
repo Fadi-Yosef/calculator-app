@@ -2,6 +2,8 @@ package se.lexicon;
 import java.util.Scanner;
 public class ConsoleCalculatorAPP { public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
+    Calculator calculator = new Calculator();
+
 
     boolean running = true;
 
@@ -11,6 +13,23 @@ public class ConsoleCalculatorAPP { public static void main(String[] args) {
         System.out.println("\nChoose operation: +  -  *  /");
         System.out.print("Operator: ");
         String op = scanner.nextLine().trim();
+        if (op.equals("+") || op.equals("-")) {
+            System.out.println("Enter numbers separated by spaces (example: 10 20 30 40):");
+            String input = scanner.nextLine().trim();
+            String[] parts = input.split("\\s+");
+
+            double[] numbers = new double[parts.length];
+            for (int i = 0; i < parts.length; i++) {
+                numbers[i] = Double.parseDouble(parts[i]);
+            }
+
+            double result = op.equals("+")
+                    ? calculator.add(numbers)
+                    : calculator.subtract(numbers);
+
+            System.out.println("Result: " + result);
+            continue;
+        }
 
         // Basic validation
         if (!op.equals("+") && !op.equals("-") && !op.equals("*") && !op.equals("/")) {
